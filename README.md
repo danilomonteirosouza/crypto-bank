@@ -12,7 +12,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-The objective of this project is to objectively demonstrate how to use the device's native biometrics for user authentication and redirection in case of confirmation using dynamic routes (handling the error in case of missing route).
+The objective of this project is to clearly and concisely demonstrate API consumption using REST, in addition to all the necessary structure for the application to work within the best design standards in the market.
 
 In this project you will see:
 
@@ -21,6 +21,14 @@ In this project you will see:
     * Responsiveness
     
     * API consuming
+    
+    * Firebase Authenticantion
+    
+    * Reusable Widgets
+    
+    * Named routes
+    
+    * State management
     
     * Object orientation
     
