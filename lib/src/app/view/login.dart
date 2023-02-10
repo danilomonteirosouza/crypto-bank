@@ -2,6 +2,7 @@ import 'package:bank_geek/src/app/routes/routegenerator.dart';
 import 'package:bank_geek/src/app/view/welcome.dart';
 import 'package:bank_geek/src/app/widgets_reusable/elevatedbuttonshort.dart';
 import 'package:bank_geek/src/app/widgets_reusable/textfield.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -104,12 +105,13 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: const Color(0xff320995),
-        elevation: 0,
-      ),
-        body: Container(
+    if(defaultTargetPlatform == TargetPlatform.android){
+      return Scaffold(
+          appBar: AppBar(
+            backgroundColor: const Color(0xff320995),
+            elevation: 0,
+          ),
+          body: Container(
             color: const Color(0xff320995),
             child: Stack(
               children: <Widget>[
@@ -129,39 +131,39 @@ class _LoginState extends State<Login> {
                           ),
                           //TextFields
                           Padding(
-                            padding: const EdgeInsets.fromLTRB(30, 0, 30, 10),
-                            child: InputCustomizado(
-                              controller: _controllerEmail,
-                              hint: 'Email',
-                              obscure: false,
-                            )
+                              padding: const EdgeInsets.fromLTRB(30, 0, 30, 10),
+                              child: InputCustomizado(
+                                controller: _controllerEmail,
+                                hint: 'Email',
+                                obscure: false,
+                              )
                           ),
                           Padding(
-                            padding: const EdgeInsets.fromLTRB(30, 0, 30, 30),
-                            child: InputCustomizado(
-                              controller: _controllerPassword,
-                              hint: 'Senha',
-                              obscure: true,
-                            )
+                              padding: const EdgeInsets.fromLTRB(30, 0, 30, 30),
+                              child: InputCustomizado(
+                                controller: _controllerPassword,
+                                hint: 'Senha',
+                                obscure: true,
+                              )
                           ),
                           //Button
                           BotaoCustomizadoShort(
-                              onPressed: _makeLogin,
+                            onPressed: _makeLogin,
                           ),
                           //Criar conta
                           const SizedBox(height: 15,),
                           TextButton(
-                              onPressed: (){
-                                Navigator.pushNamed(
-                                    context,
-                                    RouteGenerator.ROTA_REGISTER
-                                );
-                              },
-                              child: const Text(
-                                'CRIAR CONTA',
-                                style: TextStyle(
-                                    color: Color(0xff6E6E6E)
-                                ),
+                            onPressed: (){
+                              Navigator.pushNamed(
+                                  context,
+                                  RouteGenerator.ROTA_REGISTER
+                              );
+                            },
+                            child: const Text(
+                              'CRIAR CONTA',
+                              style: TextStyle(
+                                  color: Color(0xff6E6E6E)
+                              ),
                             ),
                           ),
                           //Copyright
@@ -181,7 +183,12 @@ class _LoginState extends State<Login> {
                 )
               ],
             ),
-        )
-    );
+          )
+      );
+    } else if(defaultTargetPlatform == TargetPlatform.iOS){
+      return const Text('iOS');
+    } else {
+      return const Text('System not detected');
+    }
   }
 }

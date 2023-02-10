@@ -1,5 +1,6 @@
 import 'package:bank_geek/src/app/routes/routegenerator.dart';
 import 'package:bank_geek/src/app/widgets_reusable/elevatedbuttonshort.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -90,158 +91,165 @@ class _RegisterState extends State<Register> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          backgroundColor: const Color(0xff320995),
-          elevation: 0,
-        ),
-        body: Container(
-          color: const Color(0xff320995),
-          child: Stack(
-            children: <Widget>[
-              CustomScrollView(
-                slivers: <Widget>[
-                  SliverFillRemaining(
-                    hasScrollBody: false,
-                    child: Column(
-                      children: <Widget>[
-                        //Lottie
-                        SizedBox(
-                          height: 300,
-                          child: Lottie.asset(
-                            'assets/lotties/create-account.json',
-                            repeat: false,
-                          ),
-                        ),
-                        //TextFields
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(30, 0, 30, 10),
-                          child: TextField(
-                            controller: _controlleName,
-                            style: const TextStyle(
-                              fontSize: 20,
-                              color: Colors.white,
-                            ),
-                            decoration: InputDecoration(
-                              contentPadding: const EdgeInsets.all(20),
-                              //labelText: "User",
-                              hintText: "Name",
-                              hintStyle: const TextStyle( // Altera a cor do texto dentro
-                                  color: Color(0xffA5A5A5)
-                              ),
-                              filled: true,
-                              fillColor: const Color(0xff320995),
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(32),
-                              ),
-                              enabledBorder: OutlineInputBorder(
-                                  borderSide: const BorderSide(
-                                    color: Color(0xffA5A5A5),
-                                  ),
-                                  borderRadius: BorderRadius.circular(20)
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                  borderSide: const BorderSide(
-                                    color: Color(0xffA5A5A5),
-                                  ),
-                                  borderRadius: BorderRadius.circular(20)
-                              ),
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(30, 0, 30, 10),
-                          child: TextField(
-                            controller: _controlleEmail,
-                            style: const TextStyle(
-                              fontSize: 20,
-                              color: Colors.white,
-                            ),
-                            decoration: InputDecoration(
-                              contentPadding: const EdgeInsets.all(20),
-                              //labelText: "User",
-                              hintText: "E-mail",
-                              hintStyle: const TextStyle( // Altera a cor do texto dentro
-                                  color: Color(0xffA5A5A5)
-                              ),
-                              filled: true,
-                              fillColor: const Color(0xff320995),
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(32),
-                              ),
-                              enabledBorder: OutlineInputBorder(
-                                  borderSide: const BorderSide(
-                                    color: Color(0xffA5A5A5),
-                                  ),
-                                  borderRadius: BorderRadius.circular(20)
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                  borderSide: const BorderSide(
-                                    color: Color(0xffA5A5A5),
-                                  ),
-                                  borderRadius: BorderRadius.circular(20)
-                              ),
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(30, 0, 30, 30),
-                          child: TextField(
-                            controller: _controllePassword,
-                            style: const TextStyle(
-                              fontSize: 20,
-                              color: Colors.white,
-                            ),
-                            decoration: InputDecoration(
-                              contentPadding: const EdgeInsets.all(20),
-                              //labelText: "User",
-                              hintText: "Password",
-                              hintStyle: const TextStyle( // Altera a cor do texto dentro
-                                  color: Color(0xffA5A5A5)
-                              ),
-                              filled: true,
-                              fillColor: const Color(0xff320995),
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(32),
-                              ),
-                              enabledBorder: OutlineInputBorder(
-                                  borderSide: const BorderSide(
-                                    color: Color(0xffA5A5A5),
-                                  ),
-                                  borderRadius: BorderRadius.circular(20)
-                              ),
-                              focusedBorder: OutlineInputBorder(
-                                  borderSide: const BorderSide(
-                                    color: Color(0xffA5A5A5),
-                                  ),
-                                  borderRadius: BorderRadius.circular(20)
-                              ),
-                            ),
-                            obscureText: true,
-                          ),
-                        ),
-                        //Button
-                        BotaoCustomizadoShort(
-                            onPressed: validarCampos,
-                        ),
-                        //Copyright
-                        const Padding(
-                          padding: EdgeInsets.fromLTRB(0, 80, 0, 0),
-                          child: Text(
-                            '®CryptoBank.ltda',
-                            style: TextStyle(
-                                color: Color(0xff6E6E6E)
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
-                  )
-                ],
-              )
-            ],
+    if(defaultTargetPlatform == TargetPlatform.android){
+      return Scaffold(
+          appBar: AppBar(
+            backgroundColor: const Color(0xff320995),
+            elevation: 0,
           ),
-        )
-    );
+          body: Container(
+            color: const Color(0xff320995),
+            child: Stack(
+              children: <Widget>[
+                CustomScrollView(
+                  slivers: <Widget>[
+                    SliverFillRemaining(
+                      hasScrollBody: false,
+                      child: Column(
+                        children: <Widget>[
+                          //Lottie
+                          SizedBox(
+                            height: 300,
+                            child: Lottie.asset(
+                              'assets/lotties/create-account.json',
+                              repeat: false,
+                            ),
+                          ),
+                          //TextFields
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(30, 0, 30, 10),
+                            child: TextField(
+                              controller: _controlleName,
+                              style: const TextStyle(
+                                fontSize: 20,
+                                color: Colors.white,
+                              ),
+                              decoration: InputDecoration(
+                                contentPadding: const EdgeInsets.all(20),
+                                //labelText: "User",
+                                hintText: "Name",
+                                hintStyle: const TextStyle( // Altera a cor do texto dentro
+                                    color: Color(0xffA5A5A5)
+                                ),
+                                filled: true,
+                                fillColor: const Color(0xff320995),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(32),
+                                ),
+                                enabledBorder: OutlineInputBorder(
+                                    borderSide: const BorderSide(
+                                      color: Color(0xffA5A5A5),
+                                    ),
+                                    borderRadius: BorderRadius.circular(20)
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                    borderSide: const BorderSide(
+                                      color: Color(0xffA5A5A5),
+                                    ),
+                                    borderRadius: BorderRadius.circular(20)
+                                ),
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(30, 0, 30, 10),
+                            child: TextField(
+                              controller: _controlleEmail,
+                              style: const TextStyle(
+                                fontSize: 20,
+                                color: Colors.white,
+                              ),
+                              decoration: InputDecoration(
+                                contentPadding: const EdgeInsets.all(20),
+                                //labelText: "User",
+                                hintText: "E-mail",
+                                hintStyle: const TextStyle( // Altera a cor do texto dentro
+                                    color: Color(0xffA5A5A5)
+                                ),
+                                filled: true,
+                                fillColor: const Color(0xff320995),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(32),
+                                ),
+                                enabledBorder: OutlineInputBorder(
+                                    borderSide: const BorderSide(
+                                      color: Color(0xffA5A5A5),
+                                    ),
+                                    borderRadius: BorderRadius.circular(20)
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                    borderSide: const BorderSide(
+                                      color: Color(0xffA5A5A5),
+                                    ),
+                                    borderRadius: BorderRadius.circular(20)
+                                ),
+                              ),
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.fromLTRB(30, 0, 30, 30),
+                            child: TextField(
+                              controller: _controllePassword,
+                              style: const TextStyle(
+                                fontSize: 20,
+                                color: Colors.white,
+                              ),
+                              decoration: InputDecoration(
+                                contentPadding: const EdgeInsets.all(20),
+                                //labelText: "User",
+                                hintText: "Password",
+                                hintStyle: const TextStyle( // Altera a cor do texto dentro
+                                    color: Color(0xffA5A5A5)
+                                ),
+                                filled: true,
+                                fillColor: const Color(0xff320995),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(32),
+                                ),
+                                enabledBorder: OutlineInputBorder(
+                                    borderSide: const BorderSide(
+                                      color: Color(0xffA5A5A5),
+                                    ),
+                                    borderRadius: BorderRadius.circular(20)
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                    borderSide: const BorderSide(
+                                      color: Color(0xffA5A5A5),
+                                    ),
+                                    borderRadius: BorderRadius.circular(20)
+                                ),
+                              ),
+                              obscureText: true,
+                            ),
+                          ),
+                          //Button
+                          BotaoCustomizadoShort(
+                            onPressed: validarCampos,
+                          ),
+                          //Copyright
+                          const Padding(
+                            padding: EdgeInsets.fromLTRB(0, 80, 0, 0),
+                            child: Text(
+                              '®CryptoBank.ltda',
+                              style: TextStyle(
+                                  color: Color(0xff6E6E6E)
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                    )
+                  ],
+                )
+              ],
+            ),
+          )
+      );
+    } else if(defaultTargetPlatform == TargetPlatform.iOS){
+      return const Text('iOS');
+    } else {
+      return const Text('System not detected');
+    }
+
   }
 }

@@ -1,6 +1,7 @@
 import 'package:bank_geek/src/app/api/crypto_market.dart';
 import 'package:bank_geek/src/app/model/price.dart';
 import 'package:bank_geek/src/app/widgets_reusable/elevatedbuttonlong.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:bank_geek/src/app/routes/routegenerator.dart';
 import 'package:lottie/lottie.dart';
@@ -39,91 +40,97 @@ class _WelcomeState extends State<Welcome> {
 
     @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: const Color(0xff320995),
-        elevation: 0,
-        actions: [
-          PopupMenuButton(
-            icon: const Icon(Icons.more_vert,color: Colors.white),
-            color: const Color(0xff320995),
-            itemBuilder: (context){
-                return [
-                  const PopupMenuItem<int>(
-                    value: 0,
-                    child: Text(
-                      "Logout",
-                      style: TextStyle(
-                        color: Colors.white
-                      ),
+      if(defaultTargetPlatform == TargetPlatform.android){
+        return Scaffold(
+            appBar: AppBar(
+              backgroundColor: const Color(0xff320995),
+              elevation: 0,
+              actions: [
+                PopupMenuButton(
+                    icon: const Icon(Icons.more_vert,color: Colors.white),
+                    color: const Color(0xff320995),
+                    itemBuilder: (context){
+                      return [
+                        const PopupMenuItem<int>(
+                          value: 0,
+                          child: Text(
+                            "Logout",
+                            style: TextStyle(
+                                color: Colors.white
+                            ),
+                          ),
+                        ),
+                      ];
+                    },
+                    onSelected: (value){
+                      if(value == 0){
+                        _deslogarUsuario();
+                        Navigator.pushReplacementNamed(
+                            context,
+                            RouteGenerator.ROTA_LOGIN
+                        );
+                      }
+                    }
+                ),
+              ],
+            ),
+            body: Container(
+              color: const Color(0xFF320995),
+              child: Column(
+                children: <Widget>[
+                  Lottie.asset(
+                      'assets/lotties/bitcoin.json',
+                      repeat: true
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  const SizedBox(
+                      child: Text(
+                        'Maior valor transacionado',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 30
+                        ),
+                      )
+                  ),
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  Center(
+                    child: FutureBuilder<Ticker>(
+                      future: futureCrypto,
+                      builder: (context, snapshot){
+                        if(snapshot.hasData){
+                          return Text(
+                            'R\$: ${f.format(double.parse(snapshot.data!.price?.high
+                            as String))}',
+                            style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 30
+                            ),
+                          );
+                        } else if( snapshot.hasError ){
+                          return Text(snapshot.hasError as String);
+                        } else {
+                          return const CircularProgressIndicator();
+                        }
+                      },
                     ),
                   ),
-                ];
-              },
-              onSelected: (value){
-                if(value == 0){
-                  _deslogarUsuario();
-                  Navigator.pushReplacementNamed(
-                    context,
-                    RouteGenerator.ROTA_LOGIN
-                  );
-                }
-              }
-          ),
-        ],
-      ),
-      body: Container(
-        color: const Color(0xFF320995),
-        child: Column(
-          children: <Widget>[
-            Lottie.asset(
-                'assets/lotties/bitcoin.json',
-                repeat: true
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            const SizedBox(
-             child: Text(
-               'Maior valor transacionado',
-               style: TextStyle(
-                   color: Colors.white,
-                   fontSize: 30
-               ),
-             )
-            ),
-            const SizedBox(
-              height: 30,
-            ),
-            Center(
-              child: FutureBuilder<Ticker>(
-                future: futureCrypto,
-                builder: (context, snapshot){
-                  if(snapshot.hasData){
-                    return Text(
-                      'R\$: ${f.format(double.parse(snapshot.data!.price?.high
-                      as String))}',
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 30
-                      ),
-                    );
-                  } else if( snapshot.hasError ){
-                    return Text(snapshot.hasError as String);
-                  } else {
-                    return const CircularProgressIndicator();
-                  }
-                },
+                  const SizedBox( height: 70),
+                  BotaoCustomizadoLong(
+                    onPressed: updateScreen,
+                    texto: 'Atualizar',
+                  )
+                ],
               ),
-            ),
-            const SizedBox( height: 70),
-            BotaoCustomizadoLong(
-              onPressed: updateScreen,
-              texto: 'Atualizar',
             )
-          ],
-        ),
-      )
-    );
+        );
+      } else if(defaultTargetPlatform == TargetPlatform.iOS){
+        return const Text('iOS');
+      } else {
+        return const Text('System not detected');
+      }
   }
 }
